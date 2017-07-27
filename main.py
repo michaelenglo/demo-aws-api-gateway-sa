@@ -19,7 +19,7 @@ import google.cloud.language
 import json
 
 class MainHandler(webapp2.RequestHandler):
-    def get(self):
+    def post(self):
         language_client = google.cloud.language.Client()
 
         text = self.request.get('text')
