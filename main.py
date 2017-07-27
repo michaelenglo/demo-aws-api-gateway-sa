@@ -16,10 +16,28 @@
 #
 import webapp2
 import google.cloud.language
+import json
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        language_client = google.cloud.language.Client()
+
+        text = self.request.get('text')
+
+        document = language_client.document_from_text(text)
+
+        annotations = document.annotate_text(include_sentiment = True,
+                                             include_syntax = False,
+                                             include_entities = False)
+
+        score = annotations.sentiment.score
+        magnitude = annotations.sentiment.magnitude
+
+        self.response.write(json.dumps({
+                "score" : score,
+                "magnitude" : magnitude
+            }))
+
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
