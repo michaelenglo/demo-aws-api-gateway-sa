@@ -33,6 +33,8 @@ class MainHandler(webapp2.RequestHandler):
         score = annotations.sentiment.score
         magnitude = annotations.sentiment.magnitude
 
+        self.response.headers["Content-Type"] = "application/json"
+
         self.response.write(json.dumps({
                 "score" : score,
                 "magnitude" : magnitude
