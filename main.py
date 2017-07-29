@@ -34,6 +34,7 @@ class MainHandler(webapp2.RequestHandler):
         magnitude = annotations.sentiment.magnitude
 
         self.response.headers["Content-Type"] = "application/json"
+        self.response.headers["Access-Control-Allow-Origin"] =  "*"
 
         self.response.write(json.dumps({
                 "score" : score,
